@@ -89,7 +89,7 @@ console.log(ticketPriceTotal);
 // I want you to think of potential problems you could solve given the data set and the 5k fun run theme.  
 // Try to create and then solve 3 unique problems using one or many of the array methods listed above.
 
-// Hey, isn't this your job?
+// Hey, that's your job!
 
 // Problem 1: The government runners. Find users with .gov emails, and return an array of their first-name + last-name. Log it.
 // Hint: use .map, .filter, and another .map. 
@@ -125,7 +125,7 @@ aCompDon.forEach(ele => {aAvgdCompDon.map(elem => elem[0]).includes(ele[0]) ?
     (aAvgdCompDon[aAvgdCompDon.map(elem => elem[0])
     .indexOf(ele[0])] =[ele[0], aAvgdCompDon[aAvgdCompDon.map(elem => elem[0])
     .indexOf(ele[0])][1] + ele[1], aAvgdCompDon[aAvgdCompDon.map(elem => elem[0])
-    .indexOf(ele[0])][2] + 1]): aAvgdCompDon.push(ele)});
+    .indexOf(ele[0])][2] + 1]) : aAvgdCompDon.push(ele)});
 
 // Horrid ^
 
