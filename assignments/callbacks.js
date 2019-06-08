@@ -33,7 +33,7 @@ function getLength(arr, cb)
   return cb(arr);
 }
 
-getLength(items, arr => console.log(arr.length));
+getLength(items, arr => console.log(arr.length)); 
 
 /************************** */
 
@@ -43,7 +43,7 @@ function last(arr, cb)
   return cb(arr[arr.length - 1]);
 }
 
-last(items, elem => console.log(elem));
+last(items, elem => console.log(elem)); 
 
 /************************** */
 
@@ -52,7 +52,7 @@ function sumNums(x, y, cb)
   return cb(x+y);
 }
 
-sumNums(1,2, sumVal => console.log(sumVal));
+sumNums(1,2, sumVal => console.log(sumVal)); 
 
 /************************** */
 
@@ -83,4 +83,5 @@ function removeDuplicates(array, cb) {
   return cb(tempArray);
 }
 
-removeDuplicates(items2, arr => console.log(arr));
+removeDuplicates(items2, arr => console.log(arr)); 
+// console.log(items2);                               

@@ -89,12 +89,45 @@ console.log(ticketPriceTotal);
 // I want you to think of potential problems you could solve given the data set and the 5k fun run theme.  
 // Try to create and then solve 3 unique problems using one or many of the array methods listed above.
 
-// I should be getting paid to do this work for LS!
+// Hey, isn't this your job?
 
 // Problem 1: The government runners. Find users with .gov emails, and return an array of their first-name + last-name. Log it.
+// Hint: use .map, .filter, and another .map. 
+
+let govRunners = runners.map(elem => [`${elem.first_name} ${elem.last_name}`, elem.email.substr(elem.email.length - 3)])
+    .filter(elem => elem[1] === 'gov').map(elem => elem[0]);
+
+console.log(govRunners);
 
 // Problem 2: Donation split. Given the sum of donations from challenge 4, count runners, from the lowest, until you reach at least 50%. log the count*2.
 
-// Problem 3: Who pays the most? Foolishly assuming donations are based on wages, 
+const halfTot = 7043/2.0;
+let donationCount = 0;
+
+let aDonations = runners.map(elem => elem.donation).sort();
+for (let i=0, tot=0; i<aDonations.length && tot<=halfTot; i++)
+{
+    tot += aDonations[i];
+    donationCount++;
+}
+
+console.log("At least half of the donations were made by the lowest " + donationCount*2 + "% of runners");
+
+
+// Problem 3: Who pays the most? making the assumption that donations are based on wages, 
 // arrange the companies from highest to lowest corresponding donation values. 
-// If two runners work for the same company, average their donation. Equal donations can have the companies be in any order.
+// If two or more runners work for the same company, average their donation. Equal donations can have the companies be in any order.
+
+let aCompDon = runners.map(elem => [elem.company_name, elem.donation, 1]);
+let aAvgdCompDon = [];
+
+aCompDon.forEach(ele => {aAvgdCompDon.map(elem => elem[0]).includes(ele[0]) ? 
+    (aAvgdCompDon[aAvgdCompDon.map(elem => elem[0])
+    .indexOf(ele[0])] =[ele[0], aAvgdCompDon[aAvgdCompDon.map(elem => elem[0])
+    .indexOf(ele[0])][1] + ele[1], aAvgdCompDon[aAvgdCompDon.map(elem => elem[0])
+    .indexOf(ele[0])][2] + 1]): aAvgdCompDon.push(ele)});
+
+// Horrid ^
+
+aAvgdCompDon = aAvgdCompDon.map(ele => [ele[0], Math.floor(100*(ele[1]/ele[2]))/100.0]).sort((elemA, elemB) => elemA[1] - elemB[1]).reverse();
+console.log(aAvgdCompDon);
