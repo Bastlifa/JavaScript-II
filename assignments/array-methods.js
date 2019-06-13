@@ -1,4 +1,6 @@
-// A local community center is holding a fund raising 5k fun run and has invited 50 small businesses to make a small donation on their behalf for some much needed updates to their facilities.  Each business has assigned a representative to attend the event along with a small donation.
+// A local community center is holding a fund raising 5k fun run, 
+// and has invited 50 small businesses to make a small donation on their behalf for some much needed updates to their facilities.  
+//Each business has assigned a representative to attend the event along with a small donation.
 
 // Scroll to the bottom of the list to use some advanced array methods to help the event director gather some information from the businesses.
 
@@ -54,30 +56,78 @@ const runners = [{"id":1,"first_name":"Charmain","last_name":"Seiler","email":"c
 {"id":50,"first_name":"Shell","last_name":"Baine","email":"sbaine1d@intel.com","shirt_size":"M","company_name":"Gabtype","donation":171}];
 
 // ==== Challenge 1: Use .forEach() ====
-// The event director needs both the first and last names of each runner for their running bibs.  Combine both the first and last names into a new array called fullName. 
+// The event director needs both the first and last names of each runner for their running bibs.  
+// Combine both the first and last names into a new array called fullName. 
+
 let fullName = [];
+runners.forEach(elem => fullName.push(`${elem.first_name} ${elem.last_name}`));
 console.log(fullName);
 
 // ==== Challenge 2: Use .map() ====
-// The event director needs to have all the runner's first names converted to uppercase because the director BECAME DRUNK WITH POWER. Convert each first name into all caps and log the result
-let allCaps = [];
+// The event director needs to have all the runner's first names converted to uppercase because the director BECAME DRUNK WITH POWER. 
+// Convert each first name into all caps and log the result.
+
+let allCaps = runners.map(elem => elem.first_name.toUpperCase());
 console.log(allCaps); 
 
 // ==== Challenge 3: Use .filter() ====
-// The large shirts won't be available for the event due to an ordering issue.  Get a list of runners with large sized shirts so they can choose a different size. Return an array named largeShirts that contains information about the runners that have a shirt size of L and log the result
-let largeShirts = [];
+// The large shirts won't be available for the event due to an ordering issue.  
+// Get a list of runners with large sized shirts so they can choose a different size. 
+// Return an array named largeShirts that contains information about the runners that have a shirt size of L and log the result
+
+let largeShirts = runners.filter(elem => elem.shirt_size === "L");
 console.log(largeShirts);
 
 // ==== Challenge 4: Use .reduce() ====
 // The donations need to be tallied up and reported for tax purposes. Add up all the donations into a ticketPriceTotal array and log the result
-let ticketPriceTotal = [];
+
+let ticketPriceTotal = runners.map(elem => elem.donation).reduce((total = 0, num) => total + num);
 console.log(ticketPriceTotal);
 
 // ==== Challenge 5: Be Creative ====
-// Now that you have used .forEach(), .map(), .filter(), and .reduce().  I want you to think of potential problems you could solve given the data set and the 5k fun run theme.  Try to create and then solve 3 unique problems using one or many of the array methods listed above.
+// Now that you have used .forEach(), .map(), .filter(), and .reduce().  
+// I want you to think of potential problems you could solve given the data set and the 5k fun run theme.  
+// Try to create and then solve 3 unique problems using one or many of the array methods listed above.
 
-// Problem 1
+// Hey, that's your job!
 
-// Problem 2
+// Problem 1: The government runners. Find users with .gov emails, and return an array of their first-name + last-name. Log it.
+// Hint: use .map, .filter, and another .map. 
 
-// Problem 3
+let govRunners = runners.map(elem => [`${elem.first_name} ${elem.last_name}`, elem.email.substr(elem.email.length - 3)])
+    .filter(elem => elem[1] === 'gov').map(elem => elem[0]);
+
+console.log(govRunners);
+
+// Problem 2: Donation split. Given the sum of donations from challenge 4, count runners, from the lowest, until you reach at least 50%. log the count*2.
+
+const halfTot = 7043/2.0;
+let donationCount = 0;
+
+let aDonations = runners.map(elem => elem.donation).sort();
+for (let i=0, tot=0; i<aDonations.length && tot<=halfTot; i++)
+{
+    tot += aDonations[i];
+    donationCount++;
+}
+
+console.log("At least half of the donations were made by the lowest " + donationCount*2 + "% of runners");
+
+
+// Problem 3: Who pays the most? making the assumption that donations are based on wages, 
+// arrange the companies from highest to lowest corresponding donation values. 
+// If two or more runners work for the same company, average their donation. Equal donations can have the companies be in any order.
+
+let aCompDon = runners.map(elem => [elem.company_name, elem.donation, 1]);
+let aAvgdCompDon = [];
+
+aCompDon.forEach(ele => {aAvgdCompDon.map(elem => elem[0]).includes(ele[0]) ? 
+    (aAvgdCompDon[aAvgdCompDon.map(elem => elem[0])
+    .indexOf(ele[0])] =[ele[0], aAvgdCompDon[aAvgdCompDon.map(elem => elem[0])
+    .indexOf(ele[0])][1] + ele[1], aAvgdCompDon[aAvgdCompDon.map(elem => elem[0])
+    .indexOf(ele[0])][2] + 1]) : aAvgdCompDon.push(ele)});
+
+// Horrid ^
+
+aAvgdCompDon = aAvgdCompDon.map(ele => [ele[0], Math.floor(100*(ele[1]/ele[2]))/100.0]).sort((elemA, elemB) => elemA[1] - elemB[1]).reverse();
+console.log(aAvgdCompDon);
